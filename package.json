@@ -1,0 +1,49 @@
+{
+  "name": "",
+  "version": "1.0.0",
+  "description": "Scratch",
+  "main": "./client/index.js",
+  "scripts": {
+    "start": "NODE_ENV=production nodemon server/server.js",
+    "build": "NODE_ENV=production webpack",
+    "dev": "NODE_ENV=development nodemon ./server/server.js & webpack-dev-server --open"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "build",
+      "client"
+    ]
+  },
+  "author": "EggGang",
+  "license": "None",
+  "dependencies": {
+    "@babel/polyfill": "^7.12.1",
+    "browserify": "^10.2.4",
+    "css-loader": "^5.0.1",
+    "express": "^4.12.3",
+    "pg": "^8.5.1",
+    "prop-types": "^15.6.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.3.1",
+    "react-router-dom": "^5.2.0",
+    "sass-loader": "^10.1.0",
+    "style-loader": "^2.0.0",
+    "webpack": "^4.29.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-react": "^7.12.5",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.2.1",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "concurrently": "^4.1.0",
+    "cross-env": "^5.2.0",
+    "isomorphic-fetch": "^2.2.1",
+    "nodemon": "^1.18.9",
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.11.0"
+  }
+}
