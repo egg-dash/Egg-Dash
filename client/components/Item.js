@@ -35,13 +35,6 @@ export default function Item({ addToCart, productName, productDescription, produ
 
   const [state, setState] = useState(defaultState);
 
-
-
-
-
-
-
-
   function incQuant(field) {
     console.log('pressed');
     let current = state.quantity;
