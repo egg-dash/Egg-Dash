@@ -1,7 +1,9 @@
 import React from "react";
 import { Box, Flex, Text, Button } from "@chakra-ui/react";
 export default function CartItem(props) {
-  const { quantity, product, price, description } = props;
+  const { quantity, product, price, description, removeCartItem } = props;
+
+
   return (
     <Box>
       <Flex justify="space-between">
@@ -15,7 +17,10 @@ export default function CartItem(props) {
         </Text>
       </Flex>
       <div className="space"></div>
-      <Button colorScheme="red" size="xs">
+      <Button colorScheme="red" size="xs" onClick={() => {
+        console.log(product);
+        removeCartItem(product)
+      }}>
         Remove
       </Button>
       <div className="space"></div>
