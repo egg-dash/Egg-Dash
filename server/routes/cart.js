@@ -11,7 +11,9 @@ router.get('/:email', cartController.getProductsUserCart, (req, res) => {
 });
 
 // user adds item to cart - 'post' request
-router.post('/addCart', cartController.addProductsUserCart, (req, res) => {});
+router.post('/addCart', cartController.addProductsUserCart, (req, res) => {
+  res.status(200).json('it was added to the DB! FUCK YEA!');
+});
 
 // // user deletes item from cart - 'delete' request
 // router.delete('/', cartController.deleteProductsUserCart, (req, res) => {});
