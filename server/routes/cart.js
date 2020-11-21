@@ -6,12 +6,12 @@ const cartController = require('../controllers/cartController');
 
 // user signs in and cart loads 'get' request
 
-router.get('/', cartController.getProductsUserCart, (req, res) => {
+router.get('/:email', cartController.getProductsUserCart, (req, res) => {
   res.status(200).json(res.locals.userCart);
 });
 
 // user adds item to cart - 'post' request
-// router.post('/', cartController.addProductsUserCart, (req, res) => {});
+router.post('/addCart', cartController.addProductsUserCart, (req, res) => {});
 
 // // user deletes item from cart - 'delete' request
 // router.delete('/', cartController.deleteProductsUserCart, (req, res) => {});
