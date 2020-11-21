@@ -4,16 +4,26 @@ const custController = {};
 
 // new customer signs up
 custController.createUser = (req, res, next) => {
-
-//  const { first_name, last_name, email, password, address_number, address_street, address_zip } = req.body;
- console.log('this is the req.body for createUser:', req.body);
- const signUp = `SELECT * FROM customers WHERE email='${email}'`;
-// const signUp = `INSERT INTO customers (id, first_name, last_name, email, password, address_number, address_street, address_zip)
-// VALUES ('nextval('cust_sequence')', '${first_name}', '${last_name}', '${email}', '${password}', ${address_number}, '${address_street}', '${address_zip}' )` ;
-db.query(signUp)
+  // const { email, password } = req.body;
+  const {
+    first_name,
+    last_name,
+    email,
+    password,
+    address_number,
+    address_street,
+    address_zip,
+  } = req.body;
+  console.log('this is the req.body for createUser:', req.body);
+  // const signUp = `SELECT * FROM customers WHERE email='${email}'`;
+  const signUp = `INSERT INTO customers (id, first_name, last_name, email, password, address_number, address_street, address_zip)
+  VALUES (nextval('cust_sequence'), '${first_name}', '${last_name}', '${email}', '${password}', ${address_number}, '${address_street}', '${address_zip}' )`;
+  db.query(signUp)
     .then((data) => {
-      console.log('this is the data we get once we insert a user into the DB ', data.rows);
-
+      console.log(
+        'this is the data we get once we insert a user into the DB ',
+        data.rows
+      );
     })
     .then(next)
     .catch(() => {
@@ -26,21 +36,19 @@ db.query(signUp)
         },
       });
     });
-
-
 };
 
 // customer signs in and cart loads 'get' request
 custController.verifyCust = (req, res, next) => {
   const { email, password } = req.body;
-  console.log('this is the request body: ', req.body);
+  // console.log('this is the request body: ', req.body);
   const allCusts = `SELECT * FROM customers WHERE email='${email}'`;
   db.query(allCusts)
     .then((data) => {
-      console.log('this is the data from the customer ', data.rows);
+      // console.log('this is the data from the customer ', data.rows);
       if (data.rows[0].password === password) {
         res.locals.isVerified = true;
-      } else{
+      } else {
         res.locals.isVerified = false;
       }
     })

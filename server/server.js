@@ -1,9 +1,12 @@
 const express = require('express');
 const path = require('path');
+
 const app = express();
+
 const custRouter = require('./routes/cust');
 const productsRouter = require('./routes/products');
 const cartRouter = require('./routes/cart');
+
 const port = 3000;
 
 // Body Parser Middleware
