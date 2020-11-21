@@ -17,7 +17,7 @@ custController.createUser = (req, res, next) => {
   console.log('this is the req.body for createUser:', req.body);
   // const signUp = `SELECT * FROM customers WHERE email='${email}'`;
   const signUp = `INSERT INTO customers (id, first_name, last_name, email, password, address_number, address_street, address_zip)
-  VALUES (nextval('cust_sequence'), '${first_name}', '${last_name}', '${email}', '${password}', ${address_number}, '${address_street}', '${address_zip}' )`;
+  VALUES (nextval('cust_sequence'), '${first_name}', '${last_name}', '${email}', '${password}', '${address_number}', '${address_street}', '${address_zip}' )`;
   db.query(signUp)
     .then((data) => {
       console.log(
