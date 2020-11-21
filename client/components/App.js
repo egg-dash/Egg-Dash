@@ -15,7 +15,9 @@ function App() {
     address_number: '',
     address_street: '',
     address_zip: '',
-    total: 0
+    total: 0,
+    id: '',
+    email: ''
   };
 
   const [state, setState] = useState(defaultState);
@@ -23,6 +25,13 @@ function App() {
   const [map, setMap] = useState({
     toggled: false,
   });
+
+  function unAuth() {
+    setState({
+      ...state,
+      verified: false
+    })
+  }
 
   function removeCartItem(productName) {
     let newTotal = state.total;
@@ -80,17 +89,19 @@ function App() {
     // const data = await response.json();
   }
 
-  function logOut() {
-    //this is what cart looks like: cart = [[4, 'Tacos']]
-        // const request = {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({ cart }),
-    // };
-    // const response = await fetch("/cart/addCart", request);
-    // const data = await response.json();
-
-    //send the user back to the main page
+  async function logOut() {
+    for (let i = 0; i < cart.length; i++) {
+      let quant = cart[i][0];
+      let product = cart[i][1];
+      let userId = state.id;
+      const request = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ product, quant, userId }),
+      };
+      const response = await fetch("/", request);
+      const data = await response.json();
+    }
   }
 
   function toggled() {
@@ -98,9 +109,9 @@ function App() {
     setMap({ toggled: checker });
   }
 
-  function addToCart(quantity, product, price, description) {
+  function addToCart(quantity, product, price, description, productId) {
     let current = state.cart;
-    current.push([quantity, product, price, description]);
+    current.push([quantity, product, price, description, productId]);
     let newTotal = 0;
 
     for (let i = 0; i < current.length; i++) {
@@ -126,10 +137,13 @@ function App() {
     const data = await response.json();
     console.log("this is data:", data);
     let toReturn = false;
+
     if (data) {
       setState({
         ...state,
         verified: true,
+        id: data.custInfo[0].id,
+        email: username,
       });
       toReturn = true;
     }
@@ -176,6 +190,7 @@ function App() {
       address_number: addNum,
       address_street: addSt,
       address_zip: addZip,
+      email: username,
     });
   }
 
@@ -191,13 +206,13 @@ function App() {
                 <div>
                   {map.toggled ? (
                     <div>
-                      <NavbarL toggled={toggled} cart={state.cart} total={state.total} emptyCart={emptyCart} removeCartItem={removeCartItem}/>
-                      <Markets version={true} addToCart={addToCart}/>
+                      <NavbarL toggled={toggled} cart={state.cart} total={state.total} emptyCart={emptyCart} removeCartItem={removeCartItem} unAuth={unAuth}/>
+                      <Markets version={true} addToCart={addToCart} email={state.email}/>
                     </div>
                   ) : (
                     <div>
-                      <NavbarL toggled={toggled} cart={state.cart} total={state.total} emptyCart={emptyCart} removeCartItem={removeCartItem}/>
-                      <Markets version={false} addToCart={addToCart}/>
+                      <NavbarL toggled={toggled} cart={state.cart} total={state.total} emptyCart={emptyCart} removeCartItem={removeCartItem} unAuth={unAuth}/>
+                      <Markets version={false} addToCart={addToCart} email={state.email}/>
                     </div>
                   )}
                 </div>
@@ -230,23 +245,22 @@ function App() {
 
                   <Center>
                     <Heading >
-                      <Badge fontSize='36px' colorScheme='purple'>
-                      EggDash
-                      </Badge>
+                      Welcome to Egg Dash!
                     </Heading>
                   </Center>
                   <br />
                   <Center>
-                    <Image width='400px' src="https://i.pinimg.com/originals/5b/3f/02/5b3f023d9ba7cf502fdff442096ec129.png" />
+                    <Image width='80%' borderRadius='15px' src="https://www.wegmans.com/wp-content/uploads/1097052-hero-wegmans-organic-farm-1-2048x1032.jpg" />
                   </Center>
                   <br />
                   <Center>
-                    <Text>Welcome to EggDash!</Text>
+                    <Text>
+                      We deliver organic, farm-fresh family meats and produce to any address, anytime.
+                    </Text>
                   </Center>
-                  <hr />
                   <Center>
                     <Text>
-                      Delivering high quality, farmer-sourced food since 11/20/2020.
+                      Press <Badge>Users</Badge> to sign up or log in.
                     </Text>
                   </Center>
                 </div>
@@ -280,3 +294,9 @@ function App() {
 }
 
 export default App;
+
+//logged out function invoked {
+//   loop through our cart
+//   for every item in our cart it will make a request to the server with the cart item in the body
+// }
+// req.body
