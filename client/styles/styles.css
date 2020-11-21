@@ -1,0 +1,32 @@
+.navbar {
+  background-color: #8db596;
+  display: flex;
+  height: 7.5%;
+  justify-content: flex-end;
+}
+
+.navbarC {
+  background-color: #ce7883;
+  display: flex;
+  height: 7.5%;
+  justify-content: flex-end;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+}
+
+.navbarL {
+  background-color: #8db596;
+  display: flex;
+  height: 7.5%;
+  justify-content: space-between;
+}
+
+.right {
+  margin-left: 350px;
+}
