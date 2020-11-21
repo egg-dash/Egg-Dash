@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Badge,
@@ -26,18 +26,49 @@ import Item from "./Item";
 export default function Markets(props) {
   const { version, addToCart } = props;
 
+  const defaultState = {
+    products: []
+  };
+
+  const [state, setState] = useState(defaultState);
+
+  useEffect( async () => {
+    const request = {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    };
+    const response = await fetch("/products", request);
+    const data = await response.json();
+    let marketItems = [];
+    for (let i = 0; i < data.length; i++) {
+      let marketItem = [];
+      marketItem.push(data[i].name, data[i].description, data[i].pictureurl, data[i].price);
+      marketItems.push(marketItem);
+    }
+    setState({products: marketItems})
+  }, []);
+
+  const itemArr = [];
+
+  for (let i = 0; i < state.products.length; i++) {
+    itemArr.push(<Item
+      key={i}
+      addToCart={addToCart}
+      productName={state.products[i][0]}
+      productDescription={state.products[i][1]}
+      productPicture={state.products[i][2]}
+      productPrice={state.products[i][3]}
+      />)
+  }
+
+
   return (
     <div>
       {version === true ? (
         <Container maxW="max" maxH="max">
           <Flex wrap="nowrap">
             <SimpleGrid mr="25px" columns={3} mt="25px" spacing={10}>
-              <Item addToCart={addToCart} />
-              <Item addToCart={addToCart} />
-              <Item addToCart={addToCart} />
-              <Item addToCart={addToCart} />
-              <Item addToCart={addToCart} />
-              <Item addToCart={addToCart} />
+              {itemArr}
             </SimpleGrid>
             <AspectRatio width="50%" ratio={4 / 3}>
               <iframe
@@ -50,12 +81,7 @@ export default function Markets(props) {
       ) : (
         <Container maxW="max" maxH="max">
           <SimpleGrid columns={4} mt="25px" spacing={10}>
-            <Item addToCart={addToCart} />
-            <Item addToCart={addToCart} />
-            <Item addToCart={addToCart}/>
-            <Item addToCart={addToCart}/>
-            <Item addToCart={addToCart}/>
-            <Item addToCart={addToCart}/>
+            {itemArr}
           </SimpleGrid>
         </Container>
       )}
