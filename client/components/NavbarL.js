@@ -5,6 +5,7 @@ import {
   MenuList,
   MenuItem,
   Box,
+  Badge,
   Heading,
   Flex,
   Input,
@@ -18,6 +19,7 @@ import {
   DrawerContent,
   DrawerCloseButton,
   useDisclosure,
+  useToast
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import CartItem from "./CartItem";
@@ -26,8 +28,21 @@ export default function NavbarL(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
 
-  const { toggled, cart } = props;
+  let { total, emptyCart } = props;
+  if (String(total).indexOf('.') !== -1) {
+    let newTotal = String(total).slice(0, String(total).indexOf('.') + 3);
+    total = Number(newTotal);
+  }
+
+  const toast = useToast();
+
+
+
+
+  // const [subtotal, changeSubtotal] = useState('0.00');
+  const { toggled, cart, removeCartItem } = props;
   const cartArray = [];
+
   for (let i = 0; i < cart.length; i++) {
     cartArray.push(<CartItem
       key={i}
@@ -35,7 +50,9 @@ export default function NavbarL(props) {
       product={cart[i][1]}
       price={cart[i][2]}
       description={cart[i][3]}
+      removeCartItem ={removeCartItem}
     />)
+
   }
 
   //quantity, product, price, description
@@ -55,18 +72,31 @@ export default function NavbarL(props) {
           <DrawerOverlay>
             <DrawerContent>
               <DrawerCloseButton />
-              <DrawerHeader>Cart</DrawerHeader>
+              <DrawerHeader>Shopping Cart</DrawerHeader>
               <DrawerBody>
                 {cartArray}
               </DrawerBody>
 
               <DrawerFooter>
+                <Box mr='20px'>
+                  <Flex direction='column' justify='center' align='center'>
+                  <Badge colorScheme='red'>Subtotal </Badge>${total}
+                  </Flex>
+                </Box>
                 <Button variant="outline" mr={3} onClick={onClose}>
                   Cancel
                 </Button>
-                <Link to={"/checkout"}>
-                  <Button color="blue">Checkout</Button>
-                </Link>
+                <Button color="blue" onClick={() => {
+
+                  toast({
+                    title: "Purchased!",
+                    description: `You purchased $${total} worth of grocieries.`,
+                    status: "error",
+                    duration: 5000,
+                    isClosable: true,
+                  });
+                  emptyCart()
+                }}>Checkout</Button>
               </DrawerFooter>
             </DrawerContent>
           </DrawerOverlay>

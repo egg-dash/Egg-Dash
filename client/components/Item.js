@@ -20,19 +20,27 @@ import {
   NumberInputStepper,
   NumberIncrementStepper,
   NumberDecrementStepper,
+  useToast,
 } from "@chakra-ui/react";
 
-export default function Item({ addToCart }) {
+export default function Item({ addToCart, productName, productDescription, productPicture, productPrice }) {
   const defaultState = {
-    quantity: 0,
-    productName: "Corn",
+    quantity: 1,
+    productName: productName,
     farmName: "Pepperidge Farms",
-    price: "1.99",
-    productImage: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/190423-microwave-corn-140-1556657770.jpg?crop=0.534xw:0.801xh;0.245xw,0.115xh&resize=480:*',
-    description: 'A delicious cereal grain, first domesticated by indigenous peoples in southern Mexico about 10,000 years ago.',
+    price: productPrice,
+    productImage: productPicture,
+    description: productDescription,
   };
 
   const [state, setState] = useState(defaultState);
+
+
+
+
+
+
+
 
   function incQuant(field) {
     console.log('pressed');
@@ -56,6 +64,8 @@ export default function Item({ addToCart }) {
     return;
   }
 
+  const toast = useToast();
+
   function clicked() {
 
     addToCart(state.quantity, state.productName, state.price, state.description);
@@ -64,30 +74,34 @@ export default function Item({ addToCart }) {
 
   return (
     <Box>
-      <Image
-        borderRadius="md"
-        src= {state.productImage}
-      />
-      <Flex align="baseline" mt={2}>
-        <Badge colorScheme="green" mt={2}>
-          Organic
-        </Badge>
-        <Text
-          ml={2}
-          textTransform="uppercase"
-          fontSize="sm"
-          fontWeight="bold"
-          color="green.800"
-        >
-          &bull; {state.productName} &bull; Non-GMO
+      <Flex direction='column' justify='center' align='center'>
+        <Image
+          borderRadius="md"
+          src= {state.productImage}
+          width='250px'
+          height='275px'
+        />
+        <Flex align="baseline" mt={2}>
+          <Badge colorScheme="green" mt={2}>
+            Organic
+          </Badge>
+          <Text
+            ml={2}
+            textTransform="uppercase"
+            fontSize="sm"
+            fontWeight="bold"
+            color="green.800"
+          >
+            &bull; {state.productName} &bull; Non-GMO
+          </Text>
+        </Flex>
+        <Text mt={2} fontSize="xl" fontWeight="semibold" lineHeight="short">
+          Farm: {state.farmName}
         </Text>
+        <Text>${state.price}</Text>
       </Flex>
-      <Text mt={2} fontSize="xl" fontWeight="semibold" lineHeight="short">
-        Location: {state.farmName}
-      </Text>
-      <Text>${state.price}</Text>
       <br />
-      <NumberInput size="sm" min={0} defaultValue={0} onChange={incQuant}>
+      <NumberInput size="sm" min={1} defaultValue={1} onChange={incQuant}>
         <NumberInputField />
         <NumberInputStepper >
           <NumberIncrementStepper/>
@@ -96,7 +110,17 @@ export default function Item({ addToCart }) {
       </NumberInput>
       <br />
       <Center>
-        <Button size="md" onClick={() => clicked()}>
+        <Button size="md" onClick={() => {
+          clicked()
+          toast({
+            title: "Added to cart!",
+            description: `Added ${state.quantity} ${state.productName} to cart.`,
+            status: "success",
+            duration: 3000,
+            isClosable: true,
+          });
+          }
+          }>
           Add To Cart
         </Button>
       </Center>
