@@ -48,6 +48,8 @@ custController.verifyCust = (req, res, next) => {
       // console.log('this is the data from the customer ', data.rows);
       if (data.rows[0].password === password) {
         res.locals.isVerified = true;
+        res.locals.custInfo = data.rows;
+        // console.log('this is res.locals with stuff inside', res.locals);
       } else {
         res.locals.isVerified = false;
       }
