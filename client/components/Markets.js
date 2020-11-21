@@ -24,7 +24,7 @@ import {
 } from "@chakra-ui/react";
 import Item from "./Item";
 export default function Markets(props) {
-  const { version, addToCart } = props;
+  const { version, addToCart, instantiateCart, email } = props;
 
   const defaultState = {
     products: []
@@ -32,20 +32,36 @@ export default function Markets(props) {
 
   const [state, setState] = useState(defaultState);
 
-  useEffect( async () => {
-    const request = {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    };
-    const response = await fetch("/products", request);
-    const data = await response.json();
-    let marketItems = [];
-    for (let i = 0; i < data.length; i++) {
-      let marketItem = [];
-      marketItem.push(data[i].name, data[i].description, data[i].pictureurl, data[i].price);
-      marketItems.push(marketItem);
+  useEffect(() => {
+    async function cart() {
+      const request = {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      };
+      const response = await fetch(`/cart/${email}`, request);
+      const data = await response.json();
+      console.log('this is data from cart login:', data);
+      console.log('this is data from cart login: body', data.params);
     }
-    setState({products: marketItems})
+    cart();
+
+    async function me() {
+      const request = {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      };
+      const response = await fetch("/products", request);
+      const data = await response.json();
+      let marketItems = [];
+      for (let i = 0; i < data.length; i++) {
+        let marketItem = [];
+        marketItem.push(data[i].name, data[i].description, data[i].pictureurl, data[i].price, data[i].id, data[i].farm_id);
+        marketItems.push(marketItem);
+      }
+      setState({products: marketItems})
+    }
+    me();
+
   }, []);
 
   const itemArr = [];
@@ -58,6 +74,8 @@ export default function Markets(props) {
       productDescription={state.products[i][1]}
       productPicture={state.products[i][2]}
       productPrice={state.products[i][3]}
+      productId={state.products[i][4]}
+      farmId={state.products[i][5]}
       />)
   }
 

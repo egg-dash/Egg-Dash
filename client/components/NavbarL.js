@@ -19,7 +19,7 @@ import {
   DrawerContent,
   DrawerCloseButton,
   useDisclosure,
-  useToast
+  useToast,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import CartItem from "./CartItem";
@@ -40,7 +40,7 @@ export default function NavbarL(props) {
 
 
   // const [subtotal, changeSubtotal] = useState('0.00');
-  const { toggled, cart, removeCartItem } = props;
+  const { toggled, cart, removeCartItem, unAuth} = props;
   const cartArray = [];
 
   for (let i = 0; i < cart.length; i++) {
@@ -112,7 +112,18 @@ export default function NavbarL(props) {
           Users
         </MenuButton>
         <MenuList>
-          <MenuItem>Log Out</MenuItem>
+          {/* <Link to='/'> */}
+          <MenuItem onClick={() => {
+            unAuth();
+            toast({
+              title: "Logged out!",
+              description: `You have logged out of your account.`,
+              status: "error",
+              duration: 5000,
+              isClosable: true,
+            });
+          }}>Log Out</MenuItem>
+          {/* </Link> */}
         </MenuList>
       </Menu>
     </div>
