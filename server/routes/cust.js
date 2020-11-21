@@ -5,12 +5,15 @@ const router = express.Router();
 const custController = require('../controllers/custController');
 // const cartController = require('../controllers/cartController');
 
-// customer create login
-// router.post('/signup', custController.createUser, (req, res) => {});
+// customer signs up
+router.post('/', custController.createUser, (req, res) => {
+  console.log('sign up worked, entered middleware');
+  res.status(200).json("the sign up worked");
+});
 
 // customer signs in and cart loads 'get' request
-router.post('/', custController.verifyCust, (req, res) => {
-  res.status(200).json(res.locals.allCusts);
+router.post('/login', custController.verifyCust, (req, res) => {
+  res.status(200).json(res.locals.isVerified);
 });
 
 // customer deletes their login (Stretch feature)
