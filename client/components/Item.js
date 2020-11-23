@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Box,
   Badge,
@@ -21,17 +21,25 @@ import {
   NumberIncrementStepper,
   NumberDecrementStepper,
   useToast,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 
-export default function Item({ addToCart, productName, productDescription, productPicture, productPrice, productId, farmId }) {
+export default function Item({
+  addToCart,
+  productName,
+  productDescription,
+  productPicture,
+  productPrice,
+  productId,
+  farmId,
+}) {
   const defaultState = {
     quantity: 1,
     productName: productName,
-    farmName: farmId === 1 ? 'Welsh Farms': 'PepperRidge Farms',
+    farmName: farmId === 1 ? 'Welsh Farms' : 'PepperRidge Farms',
     price: productPrice,
     productImage: productPicture,
     description: productDescription,
-    productId
+    productId,
   };
 
   const [state, setState] = useState(defaultState);
@@ -61,19 +69,24 @@ export default function Item({ addToCart, productName, productDescription, produ
   const toast = useToast();
 
   function clicked() {
-
-    addToCart(state.quantity, state.productName, state.price, state.description, state.productId);
+    addToCart(
+      state.quantity,
+      state.productName,
+      state.price,
+      state.description,
+      state.productId
+    );
     return;
   }
 
   return (
     <Box>
-      <Flex direction='column' justify='center' align='center'>
+      <Flex direction="column" justify="center" align="center">
         <Image
           borderRadius="md"
-          src= {state.productImage}
-          width='250px'
-          height='275px'
+          src={state.productImage}
+          width="250px"
+          height="275px"
         />
         <Flex align="baseline" mt={2}>
           <Badge colorScheme="green" mt={2}>
@@ -97,24 +110,26 @@ export default function Item({ addToCart, productName, productDescription, produ
       <br />
       <NumberInput size="sm" min={1} defaultValue={1} onChange={incQuant}>
         <NumberInputField />
-        <NumberInputStepper >
-          <NumberIncrementStepper/>
-          <NumberDecrementStepper/>
+        <NumberInputStepper>
+          <NumberIncrementStepper />
+          <NumberDecrementStepper />
         </NumberInputStepper>
       </NumberInput>
       <br />
       <Center>
-        <Button size="md" onClick={() => {
-          clicked()
-          toast({
-            title: "Added to cart!",
-            description: `Added ${state.quantity} ${state.productName} to cart.`,
-            status: "success",
-            duration: 3000,
-            isClosable: true,
-          });
-          }
-          }>
+        <Button
+          size="md"
+          onClick={() => {
+            clicked();
+            toast({
+              title: 'Added to cart!',
+              description: `Added ${state.quantity} ${state.productName} to cart.`,
+              status: 'success',
+              duration: 3000,
+              isClosable: true,
+            });
+          }}
+        >
           Add To Cart
         </Button>
       </Center>

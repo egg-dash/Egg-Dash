@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Box,
   Heading,
@@ -14,18 +14,18 @@ import {
   Header,
   useToast,
   CloseButton,
-} from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+} from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 
 export default function SignUp({ signedUp }) {
   const defaultState = {
-    firstname: "",
-    lastname: "",
-    addressnumber: "",
-    streetaddress: "",
-    zipcode: "",
-    username: "",
-    password: "",
+    firstname: '',
+    lastname: '',
+    addressnumber: '',
+    streetaddress: '',
+    zipcode: '',
+    username: '',
+    password: '',
   };
 
   const [state, setState] = useState(defaultState);
@@ -80,7 +80,15 @@ export default function SignUp({ signedUp }) {
   }
 
   function clicked() {
-    signedUp(state.firstname, state.lastname, state.addressnumber, state.streetaddress, state.zipcode, state.username, state.password);
+    signedUp(
+      state.firstname,
+      state.lastname,
+      state.addressnumber,
+      state.streetaddress,
+      state.zipcode,
+      state.username,
+      state.password
+    );
   }
 
   const toast = useToast();
@@ -96,7 +104,7 @@ export default function SignUp({ signedUp }) {
           borderRadius="8px"
           padding="30px"
         >
-          <Link to={"/"}>
+          <Link to={'/'}>
             <CloseButton className="right" />
           </Link>
           <img
@@ -133,7 +141,7 @@ export default function SignUp({ signedUp }) {
             <InputLeftAddon children="Password:" pr="20px" />
             <Input variant="filled" onChange={passwordChange} />
           </InputGroup>
-          <Link to={"/"}>
+          <Link to={'/'}>
             <Button
               mt="30px"
               mb="30px"
@@ -141,9 +149,9 @@ export default function SignUp({ signedUp }) {
               onClick={() => {
                 clicked();
                 toast({
-                  title: "Signed up.",
+                  title: 'Signed up.',
                   description: "We've created a new account for you.",
-                  status: "success",
+                  status: 'success',
                   duration: 5000,
                   isClosable: true,
                 });

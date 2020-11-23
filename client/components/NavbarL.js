@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Menu,
   MenuButton,
@@ -20,9 +20,9 @@ import {
   DrawerCloseButton,
   useDisclosure,
   useToast,
-} from "@chakra-ui/react";
-import { Link } from "react-router-dom";
-import CartItem from "./CartItem";
+} from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
+import CartItem from './CartItem';
 
 export default function NavbarL(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -36,23 +36,21 @@ export default function NavbarL(props) {
 
   const toast = useToast();
 
-
-
-
   // const [subtotal, changeSubtotal] = useState('0.00');
-  const { toggled, cart, removeCartItem, unAuth} = props;
+  const { toggled, cart, removeCartItem, unAuth } = props;
   const cartArray = [];
 
   for (let i = 0; i < cart.length; i++) {
-    cartArray.push(<CartItem
-      key={i}
-      quantity={cart[i][0]}
-      product={cart[i][1]}
-      price={cart[i][2]}
-      description={cart[i][3]}
-      removeCartItem ={removeCartItem}
-    />)
-
+    cartArray.push(
+      <CartItem
+        key={i}
+        quantity={cart[i][0]}
+        product={cart[i][1]}
+        price={cart[i][2]}
+        description={cart[i][3]}
+        removeCartItem={removeCartItem}
+      />
+    );
   }
 
   //quantity, product, price, description
@@ -73,30 +71,32 @@ export default function NavbarL(props) {
             <DrawerContent>
               <DrawerCloseButton />
               <DrawerHeader>Shopping Cart</DrawerHeader>
-              <DrawerBody>
-                {cartArray}
-              </DrawerBody>
+              <DrawerBody>{cartArray}</DrawerBody>
 
               <DrawerFooter>
-                <Box mr='20px'>
-                  <Flex direction='column' justify='center' align='center'>
-                  <Badge colorScheme='red'>Subtotal </Badge>${total}
+                <Box mr="20px">
+                  <Flex direction="column" justify="center" align="center">
+                    <Badge colorScheme="red">Subtotal </Badge>${total}
                   </Flex>
                 </Box>
                 <Button variant="outline" mr={3} onClick={onClose}>
                   Cancel
                 </Button>
-                <Button color="blue" onClick={() => {
-
-                  toast({
-                    title: "Purchased!",
-                    description: `You purchased $${total} worth of grocieries.`,
-                    status: "error",
-                    duration: 5000,
-                    isClosable: true,
-                  });
-                  emptyCart()
-                }}>Checkout</Button>
+                <Button
+                  color="blue"
+                  onClick={() => {
+                    toast({
+                      title: 'Purchased!',
+                      description: `You purchased $${total} worth of grocieries.`,
+                      status: 'error',
+                      duration: 5000,
+                      isClosable: true,
+                    });
+                    emptyCart();
+                  }}
+                >
+                  Checkout
+                </Button>
               </DrawerFooter>
             </DrawerContent>
           </DrawerOverlay>
@@ -113,16 +113,20 @@ export default function NavbarL(props) {
         </MenuButton>
         <MenuList>
           {/* <Link to='/'> */}
-          <MenuItem onClick={() => {
-            unAuth();
-            toast({
-              title: "Logged out!",
-              description: `You have logged out of your account.`,
-              status: "error",
-              duration: 5000,
-              isClosable: true,
-            });
-          }}>Log Out</MenuItem>
+          <MenuItem
+            onClick={() => {
+              unAuth();
+              toast({
+                title: 'Logged out!',
+                description: `You have logged out of your account.`,
+                status: 'error',
+                duration: 5000,
+                isClosable: true,
+              });
+            }}
+          >
+            Log Out
+          </MenuItem>
           {/* </Link> */}
         </MenuList>
       </Menu>
