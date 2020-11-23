@@ -26,6 +26,17 @@ function App() {
     toggled: false,
   });
 
+  function instantiateCart(cartObj) {
+    let currentCart = state.cart;
+    let newcartItem = [];
+    newcartItem.push( 1, cartObj.name, cartObj.price, cartObj.description, cartObj.productId)
+    currentCart.push(newcartItem);
+    setState ({
+      ...state,
+      cart: currentCart
+    })
+  }
+
   function unAuth() {
     setState({
       ...state,
@@ -207,12 +218,12 @@ function App() {
                   {map.toggled ? (
                     <div>
                       <NavbarL toggled={toggled} cart={state.cart} total={state.total} emptyCart={emptyCart} removeCartItem={removeCartItem} unAuth={unAuth}/>
-                      <Markets version={true} addToCart={addToCart} email={state.email}/>
+                      <Markets version={true} addToCart={addToCart} email={state.email} instantiateCart={instantiateCart}/>
                     </div>
                   ) : (
                     <div>
                       <NavbarL toggled={toggled} cart={state.cart} total={state.total} emptyCart={emptyCart} removeCartItem={removeCartItem} unAuth={unAuth}/>
-                      <Markets version={false} addToCart={addToCart} email={state.email}/>
+                      <Markets version={false} addToCart={addToCart} email={state.email} instantiateCart={instantiateCart}/>
                     </div>
                   )}
                 </div>

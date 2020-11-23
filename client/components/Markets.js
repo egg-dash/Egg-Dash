@@ -41,7 +41,9 @@ export default function Markets(props) {
       const response = await fetch(`/cart/${email}`, request);
       const data = await response.json();
       console.log('this is data from cart login:', data);
-      console.log('this is data from cart login: body', data.params);
+      for (let i = 0; i < data.length; i++) {
+        instantiateCart(data[i]);
+      }
     }
     cart();
 
