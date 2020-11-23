@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Badge,
@@ -21,13 +21,13 @@ import {
   NumberIncrementStepper,
   NumberDecrementStepper,
   AspectRatio,
-} from "@chakra-ui/react";
-import Item from "./Item";
+} from '@chakra-ui/react';
+import Item from './Item';
 export default function Markets(props) {
   const { version, addToCart, instantiateCart, email } = props;
 
   const defaultState = {
-    products: []
+    products: [],
   };
 
   const [state, setState] = useState(defaultState);
@@ -35,8 +35,8 @@ export default function Markets(props) {
   useEffect(() => {
     async function cart() {
       const request = {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
       };
       const response = await fetch(`/cart/${email}`, request);
       const data = await response.json();
@@ -49,38 +49,45 @@ export default function Markets(props) {
 
     async function me() {
       const request = {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
       };
-      const response = await fetch("/products", request);
+      const response = await fetch('/products', request);
       const data = await response.json();
       let marketItems = [];
       for (let i = 0; i < data.length; i++) {
         let marketItem = [];
-        marketItem.push(data[i].name, data[i].description, data[i].pictureurl, data[i].price, data[i].id, data[i].farm_id);
+        marketItem.push(
+          data[i].name,
+          data[i].description,
+          data[i].pictureurl,
+          data[i].price,
+          data[i].id,
+          data[i].farm_id
+        );
         marketItems.push(marketItem);
       }
-      setState({products: marketItems})
+      setState({ products: marketItems });
     }
     me();
-
   }, []);
 
   const itemArr = [];
 
   for (let i = 0; i < state.products.length; i++) {
-    itemArr.push(<Item
-      key={i}
-      addToCart={addToCart}
-      productName={state.products[i][0]}
-      productDescription={state.products[i][1]}
-      productPicture={state.products[i][2]}
-      productPrice={state.products[i][3]}
-      productId={state.products[i][4]}
-      farmId={state.products[i][5]}
-      />)
+    itemArr.push(
+      <Item
+        key={i}
+        addToCart={addToCart}
+        productName={state.products[i][0]}
+        productDescription={state.products[i][1]}
+        productPicture={state.products[i][2]}
+        productPrice={state.products[i][3]}
+        productId={state.products[i][4]}
+        farmId={state.products[i][5]}
+      />
+    );
   }
-
 
   return (
     <div>
