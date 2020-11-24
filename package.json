@@ -5,9 +5,9 @@
   "main": "./client/index.js",
   "scripts": {
     "start": "SET NODE_ENV=production & nodemon server/server.js",
-    "build": "SET NODE_ENV=production webpack",
+    "build": "SET NODE_ENV=production & webpack",
     "dev-server": "SET NODE_ENV=development & nodemon server/server.js",
-    "dev-client": "webpack-dev-server --open"
+    "dev-client": "SET NODE_ENV=development & webpack-dev-server --open"
   },
   "nodemonConfig": {
     "ignore": [
@@ -24,13 +24,16 @@
     "@emotion/react": "^11.1.1",
     "@emotion/styled": "^11.0.0",
     "browserify": "^10.2.4",
+    "dotenv": "^8.2.0",
     "express": "^4.12.3",
     "framer-motion": "^2.9.4",
     "pg": "^8.5.1",
+    "pg-hstore": "^2.3.3",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-dom": "^16.3.1",
     "react-router-dom": "^5.2.0",
+    "sequelize": "^6.3.5",
     "webpack": "^4.29.3"
   },
   "devDependencies": {
