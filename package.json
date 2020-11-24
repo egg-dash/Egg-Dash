@@ -4,9 +4,9 @@
   "description": "Scratch",
   "main": "./client/index.js",
   "scripts": {
-    "start": "NODE_ENV=production nodemon server/server.js",
-    "build": "NODE_ENV=production webpack",
-    "dev-server": "NODE_ENV=development nodemon server/server.js",
+    "start": "SET NODE_ENV=production & nodemon server/server.js",
+    "build": "SET NODE_ENV=production webpack",
+    "dev-server": "SET NODE_ENV=development & nodemon server/server.js",
     "dev-client": "webpack-dev-server --open"
   },
   "nodemonConfig": {
