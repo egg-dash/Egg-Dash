@@ -14,41 +14,20 @@ import {
   Header,
   useToast,
   CloseButton,
+  Switch,
+  FormControl,
+  FormLabel,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+import LoginForm from './LoginForm';
+import SignUpForm from './SignUpForm';
 
-export default function LogIn({ loggedIn }) {
-  const defaultState = {
-    name: '',
-    username: '',
-    password: '',
-  };
+const Login = () => {
+  // useState hook
+  const [newUser, setLoggedin] = useState(false);
 
-  const [state, setState] = useState(defaultState);
+  //
 
-  function usernameChange(field) {
-    setState({
-      ...state,
-      username: field.target.value,
-    });
-    console.log(state.username);
-  }
-
-  function passwordChange(field) {
-    setState({
-      ...state,
-      password: field.target.value,
-    });
-    console.log(state.password);
-  }
-
-  function clicked() {
-    let toReturn = loggedIn(state.username, state.password);
-    console.log(toReturn);
-    return toReturn;
-  }
-
-  const toast = useToast();
   return (
     <Container maxW="max" maxH="max">
       <Center pt="40px" pb="800px">
@@ -70,45 +49,24 @@ export default function LogIn({ loggedIn }) {
             height="225px"
             margin="15px"
           />
+          <FormControl display="flex" alignItems="left">
+            <FormLabel htmlFor="signing-up" mb="0">
+              New user? Sign up here!
+            </FormLabel>
+            <Switch id="new-user" />
+          </FormControl>
           <InputGroup mt="10px" width="sm">
             <InputLeftAddon children="Username:" />
-            <Input variant="filled" onChange={usernameChange} />
+            <Input variant="filled" />
           </InputGroup>
           <InputGroup mt="10px" width="sm">
             <InputLeftAddon children="Password:" pr="20px" />
-            <Input variant="filled" onChange={passwordChange} />
+            <Input variant="filled" />
           </InputGroup>
-          <Link to={'/'}>
-            <Button
-              mt="30px"
-              mb="30px"
-              width="sm"
-              onClick={async () => {
-                let result = await clicked();
-                if (result) {
-                  toast({
-                    title: 'Logged in.',
-                    description: 'You are now signed in!',
-                    status: 'success',
-                    duration: 5000,
-                    isClosable: true,
-                  });
-                } else {
-                  toast({
-                    title: 'Unsuccessful log in attempt.',
-                    description: 'Invalid username or password.',
-                    status: 'warning',
-                    duration: 5000,
-                    isClosable: true,
-                  });
-                }
-              }}
-            >
-              Sign In
-            </Button>
-          </Link>
         </Flex>
       </Center>
     </Container>
   );
-}
+};
+
+export default Login;
