@@ -7,7 +7,7 @@
     "start": "SET NODE_ENV=production & nodemon server/server.js",
     "build": "SET NODE_ENV=production & webpack",
     "dev-server": "SET NODE_ENV=development & nodemon server/server.js",
-    "dev-client": "SET NODE_ENV=development & webpack-dev-server --open"
+    "dev-client": "NODE_ENV=development & webpack-dev-server --open"
   },
   "nodemonConfig": {
     "ignore": [
@@ -20,10 +20,12 @@
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
     "@chakra-ui/core": "^0.8.0",
+    "@chakra-ui/icons": "^1.0.1",
     "@chakra-ui/react": "^1.0.0",
     "@emotion/react": "^11.1.1",
     "@emotion/styled": "^11.0.0",
     "browserify": "^10.2.4",
+    "chart.js": "^2.9.4",
     "dotenv": "^8.2.0",
     "express": "^4.12.3",
     "framer-motion": "^2.9.4",
@@ -31,8 +33,10 @@
     "pg-hstore": "^2.3.3",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
+    "react-chartjs-2": "^2.11.1",
     "react-dom": "^16.3.1",
     "react-router-dom": "^5.2.0",
+    "react-table": "^7.6.2",
     "sequelize": "^6.3.5",
     "webpack": "^4.29.3"
   },

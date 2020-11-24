@@ -1,18 +1,9 @@
 import React, { useState } from 'react';
 import {
-  Box,
-  Heading,
   Flex,
-  Text,
-  Button,
-  Input,
   Center,
-  InputGroup,
-  InputLeftAddon,
-  ButtonGroup,
   Container,
   Header,
-  useToast,
   CloseButton,
   Switch,
   FormControl,
@@ -23,10 +14,16 @@ import LoginForm from './LoginForm';
 import SignUpForm from './SignUpForm';
 
 const Login = () => {
-  // useState hook
-  const [newUser, setLoggedin] = useState(false);
+  // useState hooks
+  const [newUser, setRegistration] = useState(false);
 
-  //
+  const newUserHandler = (e) => {
+    if (newUser === true) {
+      setRegistration(false);
+    } else {
+      setRegistration(true);
+    }
+  };
 
   return (
     <Container maxW="max" maxH="max">
@@ -53,16 +50,9 @@ const Login = () => {
             <FormLabel htmlFor="signing-up" mb="0">
               New user? Sign up here!
             </FormLabel>
-            <Switch id="new-user" />
+            <Switch id="new-user" onChange={newUserHandler} />
           </FormControl>
-          <InputGroup mt="10px" width="sm">
-            <InputLeftAddon children="Username:" />
-            <Input variant="filled" />
-          </InputGroup>
-          <InputGroup mt="10px" width="sm">
-            <InputLeftAddon children="Password:" pr="20px" />
-            <Input variant="filled" />
-          </InputGroup>
+          {newUser === false ? <LoginForm /> : <SignUpForm />}
         </Flex>
       </Center>
     </Container>

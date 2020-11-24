@@ -7,9 +7,11 @@ const CardGrid = (props) => {
   console.log('CardGrid: ', props);
   return (
     <div className="cardGrid">
-      <Grid templateColumns="repeat(5, 1fr)">
+      <Grid templateColumns="repeat(5, 1fr)" gap={10}>
         {props.data.map((element) => {
-          return <FarmCard data={element} key={element.name} />;
+          return (
+            <FarmCard data={element} key={element.name} linkTo={props.linkTo} />
+          );
         })}
       </Grid>
     </div>

@@ -14,9 +14,68 @@ import {
   Header,
   useToast,
   CloseButton,
+  Switch,
+  FormControl,
+  FormLabel,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
+const LoginForm = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loggedIn, setLoggedin] = useState(false);
+
+  // handle sign in submit
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   alert(`Email: ${email} & Password: ${password}`);
+  // };
+
+  // const validate = () => {
+  //   // body prop of username and pass
+  //  fetch('/login', { contnet}).then((res) => res.json())
+  //  .then((data) => {
+
+  //  });
+
+  //  // send post request
+  // }
+
+  return (
+    <Flex
+      direction="column"
+      align="center"
+      bg="#e8e8e8"
+      color="black"
+      width="450px"
+      borderRadius="8px"
+      padding="30px"
+    >
+      <InputGroup mt="10px" width="sm">
+        <InputLeftAddon children="Email:" />
+        <Input variant="filled" onChange={(e) => setEmail(e.target.value)} />
+      </InputGroup>
+      <InputGroup mt="10px" width="sm">
+        <InputLeftAddon children="Password:" pr="20px" />
+        <Input variant="filled" onChange={(e) => setPassword(e.target.value)} />
+      </InputGroup>
+      <Link to={'/'}>
+        <Button
+          mt="30px"
+          mb="30px"
+          width="sm"
+          onClick={() => setLoggedin(true)}
+        >
+          Sign In
+        </Button>
+      </Link>
+    </Flex>
+  );
+};
+
+export default LoginForm;
+
+/*
 export default function LogIn({ loggedIn }) {
   const defaultState = {
     name: '',
@@ -112,3 +171,4 @@ export default function LogIn({ loggedIn }) {
     </Container>
   );
 }
+*/
