@@ -1,7 +1,7 @@
 const order = (sequelize, DataTypes) => {
   const Order = sequelize.define('Order', {
     date: {
-      type: DataTypes.STRING,
+      type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
     status: {
