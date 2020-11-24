@@ -6,7 +6,7 @@ const models = require('./models/index');
 
 const app = express();
 
-const custRouter = require('./routes/cust');
+const userRouter = require('./routes/user');
 const productsRouter = require('./routes/products');
 const cartRouter = require('./routes/cart');
 
@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // router for customer logins
-app.use('/cust', custRouter);
+app.use('/user', userRouter);
 
 // router to access products
 app.use('/products', productsRouter);
