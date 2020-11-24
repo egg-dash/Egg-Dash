@@ -1,5 +1,8 @@
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
+const models = require('./models/index');
+// const { sequelize } = require('./models');
 
 const app = express();
 
@@ -40,8 +43,11 @@ app.use((err, req, res, next) => {
 });
 
 // start server
-app.listen(port, () => {
-  console.log(`Server started on port ${port}.`);
+
+models.sequelize.sync({ force: true }).then(() => {
+  app.listen(port, () => {
+    console.log(`Server started on port ${port}.`);
+  });
 });
 
 module.exports = app;
