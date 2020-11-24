@@ -1,12 +1,12 @@
 const order = (sequelize, DataTypes) => {
   const Order = sequelize.define('Order', {
     date: {
-      type: DataTypes.STRING,
+      type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
     status: {
       type: DataTypes.STRING,
-      defaultValue: 'open', // "open" or "fullfilled"
+      defaultValue: 'open', // "empty" or "open" or "fullfilled"
     },
   });
 
