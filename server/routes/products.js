@@ -4,25 +4,29 @@ const productsController = require('../controllers/productsController');
 const router = express.Router();
 
 /**
- * When it is triggered: when a merchant log's into their account or when a customer clicks on a farm card or when a customer's cart is retrieved
- * What it does: queries the databse for product information associated with passed in farm id
- * sample request data from frontend: just req.params.farmid
+ * When it is triggered: when a merchant log's into their account or when a customer clicks on a farm card
+ * What it does: queries the databse for product information associated with passed in farmId
+ * sample request data from frontend: just req.params.farmId
  * sample response data after controllers: 
- * const data = [
-  {
-    id: 1234,
-    name: 'large brown egg (cage-free)',
-    desription: 'seriously the best eggs evah',
-    price: 400,
-    stock: 55,
-    productTypeId: 31,
-    productTypeName: 'egg',
-    image:
-      'https://static01.nyt.com/images/2019/02/05/world/05egg/15xp-egg-promo-articleLarge-v2.jpg?quality=90&auto=webp',
-    category: 'dairy/egg',
-  },
-  {another: 'product object'}
-];
+ * const data = {
+  name: 'Two Boots Farm',
+  addressStreet: '156 Long Rd',
+  addressZip: '12345',
+  email: 'twoboots@fakeemail.com',
+  description: 'the darn tootenest farm there ever was',
+  image: `https://canoladigest.ca/wp-content/uploads/2019/02/42-incorporate-farm-feature-min.jpg`,
+  products: [
+    {
+      id: 1234,
+      name: 'large brown egg (cage-free)',
+      desription: 'seriously the best eggs evah',
+      price: 400,
+      stock: 55,
+      productTypeId: 31,
+    },
+    { another: 'product object' },
+  ],
+};
  *
  */
 
@@ -34,8 +38,8 @@ router.get(
 );
 
 /**
- * When it is triggered: when a customer logs in and they do not have an open cart
- * What it does: queries the databse for for all farm informationo
+ * When it is triggered: when a customer logs in or navigates to the farm display
+ * What it does: queries the databse for for all farm information
  * sample request data from frontend: none
  * sample response data after controllers:
  *const data = [
@@ -69,26 +73,16 @@ router.get(
  *const data = [
   {
     date: '2020-11-23T21:18:19.000Z',
-    products: [
+    orderDetails: [
       {
-        name: 'large brown egg (cage-free)',
-        description: 'seriously the best eggs evah',
         unitPrice: 400,
         quantity: 3,
-        productTypeName: 'egg',
-        image:
-          'https://static01.nyt.com/images/2019/02/05/world/05egg/15xp-egg-promo-articleLarge-v2.jpg?quality=90&auto=webp',
-        category: 'dairy/egg',
+        productId:12
       },
       {
-        name: 'super soy milk',
-        description: 'seriously the best milk evah',
-        unitPrice: 250,
-        quantity: 2,
-        productTypeName: 'milk',
-        image:
-          'https://img.freepik.com/free-photo/soy-milk-with-soybean-wooden-background_42193-148.jpg?size=626&ext=jpg',
-        category: 'dairy/egg',
+        unitPrice: 200,
+        quantity: 4,
+        productId: 12
       },
     ],
   },
@@ -112,7 +106,6 @@ router.get(
   name: 'Big Al Chicken',
   description: 'Seriously just the best',
   price: 750,
-  stock: 35,
   productTypeid: 12,
 };
  * sample response data after controllers: just a status code
@@ -123,18 +116,61 @@ router.post('/add', (req, res) => {
 });
 
 /**
+ * When it is triggered: whenever the frontennd needs the list of product types
+ * What it does: returns all of the producttype info in the database
+ * sample request data from frontend: none
+ * sample response data after controllers:
+ * const data = [
+  {
+    name: 'egg',
+    image:
+      'https://cimg0.ibsrv.net/cimg/www.fitday.com/693x350_85-1/728/Eggs_000001615195_Small-108728.jpg',
+    category: 'eggs/dairy',
+  },
+  {
+    name: 'chicken',
+    image:
+      'https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fimages.media-allrecipes.com%2Fuserphotos%2F389250.jpg&q=85',
+    category: 'poultry',
+  },
+];
+ *
+ */
+
+router.get('/types', (req, res) => {
+  res.send(200).json(res.locals);
+});
+
+/**
  * When it is triggered: when a merchant clicks submit to update product data
- * What it does: updates stock and/or price for a product in the database
+ * What it does: updates info in the database for an existing product
  * sample request data from frontend: 
- * const data = {
+* const data = {
   productId: 123,
-  price: 350,
-  stock: 50,  // this should be the new total stock
+  name: 'Big Al Chicken',
+  description: 'Seriously just the best',
+  price: 750,
+  productTypeid: 12,
 };
  * sample response data after controllers: just a status code
  */
 
-router.put('/update/:productid', (req, res) => {
+router.put('/update', (req, res) => {
+  res.sendStatus(200);
+});
+
+/**
+ * When it is triggered: when a merchant clicks submit to an add supply form
+ * What it does: updates stock for a product in the database and creates a new supply entry
+ * sample request data from frontend: 
+* const data = {
+  productId: 123,
+  quantity: 50
+};
+ * sample response data after controllers: just a status code
+ */
+
+router.post('/supply', (req, res) => {
   res.sendStatus(200);
 });
 

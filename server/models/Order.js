@@ -6,7 +6,7 @@ const order = (sequelize, DataTypes) => {
     },
     status: {
       type: DataTypes.STRING,
-      defaultValue: 'open', // "open" or "fullfilled"
+      defaultValue: 'open', // "empty" or "open" or "fullfilled"
     },
   });
 
