@@ -10,14 +10,14 @@ const Supply = require('./Supply');
 const db = {};
 
 // cloud database. uncomment to use
-// const { PG_URI } = process.env;
-// const sequelize = new Sequelize(PG_URI);
+const { PG_URI } = process.env;
+const sequelize = new Sequelize(PG_URI);
 
 // local database. uncomment to use
-const sequelize = new Sequelize('eggdash-test', 'postgres', '1234', {
-  host: 'localhost',
-  dialect: 'postgres',
-});
+// const sequelize = new Sequelize('eggdash-test', 'postgres', '1234', {
+//   host: 'localhost',
+//   dialect: 'postgres',
+// });
 
 // Test db.
 

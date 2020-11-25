@@ -27,6 +27,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.12.3",
     "framer-motion": "^2.9.4",
+    "jsonwebtoken": "^8.5.1",
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.3",
     "prop-types": "^15.6.1",

@@ -19,7 +19,7 @@ async function createTestData(req, res, next) {
   }
 }
 
-router.get('/testdata', createTestData, (req, res) => {
+router.post('/testdata', createTestData, (req, res) => {
   res.status(200).json(res.locals);
 });
 
