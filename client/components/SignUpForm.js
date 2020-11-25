@@ -13,19 +13,104 @@ import {
   Container,
   Header,
   useToast,
-  CloseButton,
+  Select,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+import FarmerForm from './FarmerForm.js';
 
-export default function SignUp({ signedUp }) {
+const SignUp = () => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [streetAddress, setStreetAddress] = useState('');
+  const [zipCode, setZipCode] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [userType, setUserType] = useState('');
+
+  const toast = useToast();
+  return (
+    <Flex
+      direction="column"
+      align="center"
+      bg="#e8e8e8"
+      color="black"
+      width="450px"
+      borderRadius="8px"
+      padding="30px"
+    >
+      <InputGroup mt="10px">
+        <InputLeftAddon children="First Name:" />
+        <Input
+          variant="filled"
+          onChange={(e) => setFirstName(e.target.value)}
+        />
+      </InputGroup>
+      <InputGroup mt="10px">
+        <InputLeftAddon children="Last Name:" />
+        <Input variant="filled" onChange={(e) => setLastName(e.target.value)} />
+      </InputGroup>
+      <InputGroup mt="10px">
+        <InputLeftAddon children="Street Address:" />
+        <Input
+          variant="filled"
+          onChange={(e) => setStreetAddress(e.target.value)}
+        />
+      </InputGroup>
+      <InputGroup mt="10px">
+        <InputLeftAddon children="Zipcode:" />
+        <Input variant="filled" onChange={(e) => setZipCode(e.target.value)} />
+      </InputGroup>
+      <InputGroup mt="10px">
+        <InputLeftAddon children="Email:" />
+        <Input variant="filled" onChange={(e) => setEmail(e.target.value)} />
+      </InputGroup>
+      <InputGroup mt="10px">
+        <InputLeftAddon children="Password:" pr="20px" />
+        <Input variant="filled" onChange={(e) => setPassword(e.target.value)} />
+      </InputGroup>
+      <Select
+        mt="10px"
+        variant="filled"
+        placeholder="User Type"
+        onChange={(e) => setUserType(e.target.value)}
+      >
+        <option value="Merchant">Merchant</option>
+        <option value="Customer">Customer</option>
+      </Select>
+      {userType === 'Merchant' ? <FarmerForm /> : null}
+      <Link to={'/'}>
+        <Button
+          mt="30px"
+          mb="30px"
+          width="sm"
+          onClick={() => {
+            toast({
+              title: 'Signed up.',
+              description: "We've created a new account for you.",
+              status: 'success',
+              duration: 5000,
+              isClosable: true,
+            });
+          }}
+        >
+          Sign Up
+        </Button>
+      </Link>
+    </Flex>
+  );
+};
+
+export default SignUp;
+
+/*
   const defaultState = {
     firstname: '',
     lastname: '',
-    addressnumber: '',
     streetaddress: '',
     zipcode: '',
     username: '',
     password: '',
+    userType: '',
   };
 
   const [state, setState] = useState(defaultState);
@@ -41,13 +126,6 @@ export default function SignUp({ signedUp }) {
     setState({
       ...state,
       lastname: field.target.value,
-    });
-  }
-
-  function addressnumberChange(field) {
-    setState({
-      ...state,
-      addressnumber: field.target.value,
     });
   }
 
@@ -79,89 +157,22 @@ export default function SignUp({ signedUp }) {
     });
   }
 
+  function userTypeChange(field) {
+    setState({
+      ...state,
+      userType: field.target.value,
+    });
+  }
+
   function clicked() {
     signedUp(
       state.firstname,
       state.lastname,
-      state.addressnumber,
       state.streetaddress,
       state.zipcode,
       state.username,
-      state.password
+      state.password,
+      state.userType
     );
   }
-
-  const toast = useToast();
-  return (
-    <Container maxW="max" maxH="max">
-      <Center pt="40px" pb="800px">
-        <Flex
-          direction="column"
-          align="center"
-          bg="#e8e8e8"
-          color="black"
-          width="450px"
-          borderRadius="8px"
-          padding="30px"
-        >
-          <Link to={'/'}>
-            <CloseButton className="right" />
-          </Link>
-          <img
-            src="https://i.pinimg.com/originals/13/96/e3/1396e3af2ef86850c7e4cf64540d54ea.png"
-            width="225px"
-            height="225px"
-            margin="15px"
-          />
-          <InputGroup mt="10px" width="sm">
-            <InputLeftAddon children="First Name:" />
-            <Input variant="filled" onChange={firstnameChange} />
-          </InputGroup>
-          <InputGroup mt="10px" width="sm">
-            <InputLeftAddon children="Last Name:" />
-            <Input variant="filled" onChange={lastnameChange} />
-          </InputGroup>
-          <InputGroup mt="10px" width="sm">
-            <InputLeftAddon children="Address #:" />
-            <Input variant="filled" onChange={addressnumberChange} />
-          </InputGroup>
-          <InputGroup mt="10px" width="sm">
-            <InputLeftAddon children="Street Address:" />
-            <Input variant="filled" onChange={streetaddressChange} />
-          </InputGroup>
-          <InputGroup mt="10px" width="sm">
-            <InputLeftAddon children="Zipcode:" />
-            <Input variant="filled" onChange={zipcodeChange} />
-          </InputGroup>
-          <InputGroup mt="10px" width="sm">
-            <InputLeftAddon children="Username:" />
-            <Input variant="filled" onChange={usernameChange} />
-          </InputGroup>
-          <InputGroup mt="10px" width="sm">
-            <InputLeftAddon children="Password:" pr="20px" />
-            <Input variant="filled" onChange={passwordChange} />
-          </InputGroup>
-          <Link to={'/'}>
-            <Button
-              mt="30px"
-              mb="30px"
-              width="sm"
-              onClick={() => {
-                clicked();
-                toast({
-                  title: 'Signed up.',
-                  description: "We've created a new account for you.",
-                  status: 'success',
-                  duration: 5000,
-                  isClosable: true,
-                });
-              }}
-            >
-              Sign Up
-            </Button>
-          </Link>
-        </Flex>
-      </Center>
-    </Container>
-  );
-}
+  */

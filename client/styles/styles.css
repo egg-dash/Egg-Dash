@@ -34,3 +34,51 @@
 .space {
   height: 5px;
 }
+
+.farmsHero {
+  margin-bottom: 60px;
+  background-image: url('https://klesicks.com/wp-content/uploads/2017/12/klesicks_coverphoto_farmer-e1513371366273.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position-y: center;
+  height: 500px;
+}
+
+.farmsHeroDetails {
+  padding: 3rem;
+  z-index: 1;
+  background: #ffffff7a;
+  margin-top: 125px;
+  /* position: absolute;
+  top: 300px; */
+}
+
+.cardGrid {
+  margin-top: 20px;
+}
+
+.farmCardImage {
+  height: 125px;
+  width: 100%;
+}
+
+table {
+  border-spacing: 10px;
+  border: 1 px solid white;
+}
+
+table tbody tr:nth-child(even) {
+  background-color: #e8e8e8;
+}
+
+table td {
+  padding: 5px 20px;
+}
+
+thead {
+  border-bottom: 2px solid #8db596;
+}
+
+.mt {
+  margin-top: 30px;
+}
