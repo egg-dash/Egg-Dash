@@ -22,7 +22,7 @@ const router = express.Router();
       desription: 'seriously the best eggs evah',
       price: 400,
       stock: 55,
-      productTypeId: 31,
+      ProductTypeId: 31,
     },
     { another: 'product object' },
   ],
@@ -30,12 +30,9 @@ const router = express.Router();
  *
  */
 
-router.get(
-  '/:farmId',
-  /* TO DO: add controllers */ (req, res) => {
-    res.status(200).json(res.locals);
-  }
-);
+router.get('/all/:FarmId', productsController.getProducts, (req, res) => {
+  res.status(200).json(res.locals);
+});
 
 /**
  * When it is triggered: when a customer logs in or navigates to the farm display
@@ -58,12 +55,9 @@ router.get(
  *
  */
 
-router.get(
-  '/farms',
-  /* TO DO: add controllers */ (req, res) => {
-    res.status(200).json(res.locals);
-  }
-);
+router.get('/farms', productsController.getFarms, (req, res) => {
+  res.status(200).json(res.locals);
+});
 
 /**
  * When it is triggered: when a merchant logs in
@@ -102,16 +96,15 @@ router.get(
  * What it does: creates a new product in the database
  * sample request data from frontend: 
  * const data = {
-  farmId: 123,
+  FarmId: 123,
   name: 'Big Al Chicken',
   description: 'Seriously just the best',
   price: 750,
-  productTypeid: 12,
+  ProductTypeId: 12,
 };
  * sample response data after controllers: just a status code
  */
-
-router.post('/add', (req, res) => {
+router.post('/add', productsController.addProduct, (req, res) => {
   res.sendStatus(200);
 });
 
@@ -122,23 +115,27 @@ router.post('/add', (req, res) => {
  * sample response data after controllers:
  * const data = [
   {
+    id: 1,
     name: 'egg',
     image:
       'https://cimg0.ibsrv.net/cimg/www.fitday.com/693x350_85-1/728/Eggs_000001615195_Small-108728.jpg',
     category: 'eggs/dairy',
+    unit: 'dozen',
   },
   {
+    id: 12,
     name: 'chicken',
     image:
       'https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fimages.media-allrecipes.com%2Fuserphotos%2F389250.jpg&q=85',
     category: 'poultry',
+    unit: 'lb',
   },
 ];
  *
  */
 
-router.get('/types', (req, res) => {
-  res.send(200).json(res.locals);
+router.get('/types', productsController.getTypes, (req, res) => {
+  res.status(200).json(res.locals);
 });
 
 /**
@@ -146,16 +143,16 @@ router.get('/types', (req, res) => {
  * What it does: updates info in the database for an existing product
  * sample request data from frontend: 
 * const data = {
-  productId: 123,
+  ProductId: 123,
   name: 'Big Al Chicken',
   description: 'Seriously just the best',
   price: 750,
-  productTypeid: 12,
+  ProductTypeid: 12,
 };
  * sample response data after controllers: just a status code
  */
 
-router.put('/update', (req, res) => {
+router.put('/update', productsController.updateProduct, (req, res) => {
   res.sendStatus(200);
 });
 
@@ -164,13 +161,13 @@ router.put('/update', (req, res) => {
  * What it does: updates stock for a product in the database and creates a new supply entry
  * sample request data from frontend: 
 * const data = {
-  productId: 123,
+  ProductId: 123,
   quantity: 50
 };
  * sample response data after controllers: just a status code
  */
 
-router.post('/supply', (req, res) => {
+router.post('/supply', productsController.addSupply, (req, res) => {
   res.sendStatus(200);
 });
 

@@ -9,6 +9,7 @@ const app = express();
 const userRouter = require('./routes/user');
 const productsRouter = require('./routes/products');
 const cartRouter = require('./routes/cart');
+const testRouter = require('./routes/test');
 
 const port = 3000;
 
@@ -24,6 +25,9 @@ app.use('/products', productsRouter);
 
 // router for shopping cart
 app.use('/cart', cartRouter);
+
+// router for testing
+app.use('/test', testRouter);
 
 // serve index.html on the route '/'
 app.get('/*', (req, res) => {
@@ -44,7 +48,7 @@ app.use((err, req, res, next) => {
 
 // start server
 
-models.sequelize.sync({ force: true }).then(() => {
+models.sequelize.sync({ force: false }).then(() => {
   app.listen(port, () => {
     console.log(`Server started on port ${port}.`);
   });
