@@ -1,7 +1,7 @@
 const supply = (sequelize, DataTypes) => {
   const Supply = sequelize.define('Supply', {
     date: {
-      type: DataTypes.STRING,
+      type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
     quantity: {

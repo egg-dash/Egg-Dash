@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { loadFarmData } from '../utils/helpers.js';
+import { Container } from '@chakra-ui/react';
 
 import FarmsHero from './FarmsHero';
 import CardGrid from './CardGrid';
@@ -15,7 +16,9 @@ const Farms = (props) => {
   return (
     <div className="farmsContainer">
       <FarmsHero />
-      <CardGrid data={farms} />
+      <Container maxWidth="95%">
+        <CardGrid data={farms} linkTo="/farm" />
+      </Container>
     </div>
   );
 };
